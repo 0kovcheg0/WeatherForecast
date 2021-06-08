@@ -1,6 +1,6 @@
 part of 'weather_cubit.dart';
 
-enum WeatherStatus{
+enum WeatherStatus {
   initial,
   loading,
   loaded,
@@ -9,7 +9,6 @@ enum WeatherStatus{
 
 @immutable
 class WeatherState extends Equatable {
-
   final List<WeatherModel>? weather;
   final String? message;
   final WeatherStatus? status;
@@ -18,15 +17,15 @@ class WeatherState extends Equatable {
     this.weather,
     this.message,
     this.status,
-});
+  });
 
   WeatherState copyWith({
     List<WeatherModel>? weather,
     String? message,
     WeatherStatus? status,
-}) {
+  }) {
     return WeatherState(
-      weather:  weather ?? this.weather,
+      weather: weather ?? this.weather,
       message: message ?? this.message,
       status: status ?? this.status,
     );

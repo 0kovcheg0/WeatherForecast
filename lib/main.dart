@@ -4,4 +4,3 @@ import 'package:weather_forecast/app.dart';
 void main() {
   runApp(App());
 }
-

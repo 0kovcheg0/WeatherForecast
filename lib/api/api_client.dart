@@ -1,6 +1,6 @@
 import 'package:chopper/chopper.dart';
-import 'package:weather_forecast/api/services/weather_service.dart';
 import 'package:weather_forecast/api/models/weather_model.dart';
+import 'package:weather_forecast/api/services/weather_service.dart';
 import 'package:weather_forecast/resources/app_strings.dart';
 
 import 'api_error.dart';

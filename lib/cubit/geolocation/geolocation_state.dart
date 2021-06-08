@@ -1,8 +1,9 @@
 part of "geolocation_cubit.dart";
 
 enum GeolocationStatus {
-  started,
+  initial,
   changed,
+  loaded,
   error,
 }
 
