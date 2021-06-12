@@ -3,11 +3,11 @@ import 'package:weather_forecast/resources/app_strings.dart';
 
 part 'weather_service.chopper.dart';
 
-@ChopperApi(baseUrl: AppStrings.baseUrl)
+@ChopperApi()
 abstract class WeatherService extends ChopperService {
   static WeatherService create([ChopperClient? client]) =>
       _$WeatherService(client);
 
-  @Get()
+  @Get(path: AppStrings.baseUrl)
   Future<Response> getWeather();
 }

@@ -20,8 +20,7 @@ class ApiClient {
     final rawWeathers =
         (await _makeCheckedCall(() => weatherService.getWeather())).body;
     final weather = rawWeathers
-        .map((rawWeather) => WeatherModel.fromJson(rawWeather))
-        .toList();
+        .map((rawWeather) => WeatherModel.fromJson(rawWeather)).toList();
 
     return weather;
   }

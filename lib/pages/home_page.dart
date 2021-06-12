@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:weather_forecast/api/models/weather_model.dart';
 import 'package:weather_forecast/cubit/geolocation/geolocation_cubit.dart';
 import 'package:weather_forecast/cubit/weather/weather_cubit.dart';
+import 'package:weather_forecast/pages/side_menu.dart';
+import 'package:weather_forecast/views/weather_list_view.dart';
 
 class HomePage extends StatefulWidget {
-  HomePage({Key? key, required this.title}) : super(key: key);
+
+  HomePage({Key? key, required this.title})
+      : super(key: key);
 
   final String title;
 
@@ -15,9 +20,8 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    final weather = context.read<WeatherCubit>();
-
     return Scaffold(
+      drawer: SideMenu(),
       appBar: AppBar(
         title: Text(widget.title),
       ),
@@ -25,18 +29,18 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            BlocConsumer<GeolocationCubit, GeolocationState>(
+            BlocConsumer<WeatherCubit, WeatherState>(
               builder: (context, state) {
                 switch (state.status) {
-                  case GeolocationStatus.loaded:
-                    return Text(
-                        'Lat: ${state.position!.latitude}, Lon: ${state.position!.longitude}');
-                  default:
+                  case WeatherStatus.loaded:
+                      final weather = state.weather;
+                      return buildWeatherList(weather!);
+                    default:
                     return Text("Lat: 99, Lon: 95");
                 }
               },
               listener: (context, state) {
-                if (state.status == GeolocationStatus.error) {
+                if (state.status == WeatherStatus.error) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       content: Text(state.message!),
@@ -54,6 +58,32 @@ class _HomePageState extends State<HomePage> {
     //   onPressed: () {_getCurrentLocation();},
     // ),
     //);
+  }
+
+  Widget buildWeatherList(List<WeatherModel> weather) {
+    return ListView.builder(
+      itemCount: weather.length,
+      itemBuilder: (context, index) {
+        return Container(
+          width: double.infinity,
+          height: 50.0,
+          color: Colors.white,
+          child: Row(
+            children: [
+              Expanded(
+                child: WeatherListView(hourly: weather[index].hourly),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  Widget buildLoading() {
+    return Center(
+      child: CircularProgressIndicator(),
+    );
   }
 
 // _getCurrentLocation() {
