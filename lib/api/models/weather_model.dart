@@ -2,7 +2,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'weather_model.g.dart';
 
-@JsonSerializable(explicitToJson: true)
+@JsonSerializable(explicitToJson: true, anyMap: true)
 class WeatherModel {
   double lat;
   double lon;
@@ -27,7 +27,7 @@ class WeatherModel {
   Map<String, dynamic> toJson() => _$WeatherModelToJson(this);
 }
 
-@JsonSerializable(explicitToJson: true)
+@JsonSerializable(explicitToJson: true, anyMap: true)
 class Current {
   int dt;
   int sunrise;
@@ -68,7 +68,7 @@ class Current {
   Map<String, dynamic> toJson() => _$CurrentToJson(this);
 }
 
-@JsonSerializable(explicitToJson: true)
+@JsonSerializable(explicitToJson: true, anyMap: true)
 class Weather {
   int id;
   String main;
@@ -87,7 +87,7 @@ class Weather {
   Map<String, dynamic> toJson() => _$WeatherToJson(this);
 }
 
-@JsonSerializable(explicitToJson: true)
+@JsonSerializable(explicitToJson: true, anyMap: true)
 class Rain {
   double d1h;
 
@@ -98,7 +98,7 @@ class Rain {
   Map<String, dynamic> toJson() => _$RainToJson(this);
 }
 
-@JsonSerializable(explicitToJson: true)
+@JsonSerializable(explicitToJson: true, anyMap: true)
 class Hourly {
   int dt;
   double temp;
@@ -136,7 +136,7 @@ class Hourly {
   Map<String, dynamic> toJson() => _$HourlyToJson(this);
 }
 
-@JsonSerializable(explicitToJson: true)
+@JsonSerializable(explicitToJson: true, anyMap: true)
 class Daily {
   int dt;
   int sunrise;
@@ -182,7 +182,7 @@ class Daily {
   Map<String, dynamic> toJson() => _$DailyToJson(this);
 }
 
-@JsonSerializable(explicitToJson: true)
+@JsonSerializable(explicitToJson: true, anyMap: true)
 class Temp {
   double day;
   double min;
@@ -204,7 +204,7 @@ class Temp {
   Map<String, dynamic> toJson() => _$TempToJson(this);
 }
 
-@JsonSerializable(explicitToJson: true)
+@JsonSerializable(explicitToJson: true, anyMap: true)
 class FeelsLike {
   double day;
   double night;

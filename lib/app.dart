@@ -22,7 +22,7 @@ class App extends StatelessWidget {
             ),
             BlocProvider(
               create: (BuildContext context) =>
-                  GeolocationCubit(Geolocator())..getGeolocation(),
+                  GeolocationCubit()..getGeolocation(),
             ),
           ],
           child: HomePage(title: 'Flutter Demo Home Page'),

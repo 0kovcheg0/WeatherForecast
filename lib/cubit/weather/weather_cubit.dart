@@ -14,6 +14,7 @@ class WeatherCubit extends Cubit<WeatherState> {
 
   Future<void> getWeather() async {
     try {
+      emit(state.copyWith(status: WeatherStatus.initial));
       emit(state.copyWith(status: WeatherStatus.loading));
       final weather = await apiClient.getWeather();
       emit(state.copyWith(status: WeatherStatus.loaded, weather: weather));

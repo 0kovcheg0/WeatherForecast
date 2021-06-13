@@ -7,8 +7,7 @@ import 'package:weather_forecast/api/api_error.dart';
 part 'geolocation_state.dart';
 
 class GeolocationCubit extends Cubit<GeolocationState> {
-  Geolocator geolocator;
-  GeolocationCubit(this.geolocator) : super(GeolocationState());
+  GeolocationCubit() : super(GeolocationState());
 
   Future<Position> getPosition() async {
     final Position position = await (Geolocator.getCurrentPosition(

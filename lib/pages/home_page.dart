@@ -30,15 +30,6 @@ class _HomePageState extends State<HomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             BlocConsumer<WeatherCubit, WeatherState>(
-              builder: (context, state) {
-                switch (state.status) {
-                  case WeatherStatus.loaded:
-                      final weather = state.weather;
-                      return buildWeatherList(weather!);
-                    default:
-                    return Text("Lat: 99, Lon: 95");
-                }
-              },
               listener: (context, state) {
                 if (state.status == WeatherStatus.error) {
                   ScaffoldMessenger.of(context).showSnackBar(
@@ -46,6 +37,19 @@ class _HomePageState extends State<HomePage> {
                       content: Text(state.message!),
                     ),
                   );
+                }
+              },
+              builder: (context, state) {
+                switch (state.status) {
+                  case WeatherStatus.loaded:
+                      final weather = state.weather;
+                      return buildWeatherList(weather!);
+                  case WeatherStatus.loading:
+                    return buildLoading();
+                  case WeatherStatus.initial:
+                    return buildLoading();
+                      default:
+                    return Text("Lat: 99, Lon: 95");
                 }
               },
             )
