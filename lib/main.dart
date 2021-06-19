@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:weather_forecast/app.dart';
 
-void main() {
+import 'service_locator.dart' as di;
+
+void main() async {
+  await di.setup();
   runApp(App());
 }

@@ -9,7 +9,7 @@ enum WeatherStatus {
 
 @immutable
 class WeatherState extends Equatable {
-  final List<WeatherModel>? weather;
+  final WeatherModel? weather;
   final String? message;
   final WeatherStatus? status;
 
@@ -20,7 +20,7 @@ class WeatherState extends Equatable {
   });
 
   WeatherState copyWith({
-    List<WeatherModel>? weather,
+    WeatherModel? weather,
     String? message,
     WeatherStatus? status,
   }) {

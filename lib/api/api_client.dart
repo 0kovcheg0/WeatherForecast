@@ -11,16 +11,17 @@ class ApiClient {
     services: [
       WeatherService.create(),
     ],
+    // TODO: See this feature in details
+    interceptors: [],
     converter: JsonConverter(),
   );
 
   static final weatherService = _chopperClient.getService<WeatherService>();
 
-  Future<List<WeatherModel>> getWeather() async {
+  Future<WeatherModel> getWeather() async {
     final rawWeathers =
         (await _makeCheckedCall(() => weatherService.getWeather())).body;
-    final weather = rawWeathers
-        .map((rawWeather) => WeatherModel.fromJson(rawWeather)).toList();
+    final weather = WeatherModel.fromJson(rawWeathers);
 
     return weather;
   }
@@ -31,8 +32,9 @@ class ApiClient {
 
       if (response.statusCode >= 400) {
         throw ApiError(
-            statusCode: response.statusCode,
-            message: response.error.toString());
+          statusCode: response.statusCode,
+          message: response.error.toString(),
+        );
       }
 
       return response;
