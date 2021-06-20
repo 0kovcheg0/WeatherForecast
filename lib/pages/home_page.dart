@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weather_forecast/api/models/weather_model.dart';
+import 'package:weather_forecast/cubit/geolocation/geolocation_cubit.dart';
 import 'package:weather_forecast/cubit/weather/weather_cubit.dart';
 import 'package:weather_forecast/pages/side_menu.dart';
 import 'package:weather_forecast/resources/app_strings.dart';
 import 'package:weather_forecast/views/weather_list_view.dart';
+
+import '../service_locator.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key? key, required this.title}) : super(key: key);
@@ -28,6 +31,8 @@ class _HomePageState extends State<HomePage> {
   //     print(e);
   //   });
   // }
+  final weatherCubit = getIt.get<WeatherCubit>();
+  final geolocationCubit = getIt.get<GeolocationCubit>();
  @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,16 +41,16 @@ class _HomePageState extends State<HomePage> {
         title: Text(AppStrings.home_title),
       ),
       body: BlocConsumer<WeatherCubit, WeatherState>(
-        listener: (context, state) {
+        listener: (weatherCubit, state) {
           if (state.status == WeatherStatus.error) {
-            ScaffoldMessenger.of(context).showSnackBar(
+            ScaffoldMessenger.of(weatherCubit).showSnackBar(
               SnackBar(
                 content: Text(state.message!),
               ),
             );
           }
         },
-        builder: (context, state) {
+        builder: (weatherCubit, state) {
           switch (state.status) {
             case WeatherStatus.initial:
             case WeatherStatus.loading:
@@ -53,7 +58,7 @@ class _HomePageState extends State<HomePage> {
             case WeatherStatus.loaded:
               return _buildHourlyWeatherList(state.weather!);
             default:
-              return Text("Lat: 99, Lon: 95");
+              return Text('0, 0');
           }
         },
       ),
@@ -61,6 +66,7 @@ class _HomePageState extends State<HomePage> {
       //   child: Text("Get location"),
       //   onPressed: _getCurrentLocation,
       // ),
+
     );
   }
 

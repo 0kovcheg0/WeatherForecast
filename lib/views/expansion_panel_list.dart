@@ -3,6 +3,8 @@ import 'package:get_it/get_it.dart';
 import 'package:weather_forecast/api/models/hourly.dart';
 import 'package:weather_forecast/cubit/weather/weather_cubit.dart';
 
+import '../service_locator.dart';
+
 class Expansionpanel extends StatefulWidget {
   Expansionpaneltate createState() =>  Expansionpaneltate();
 }
@@ -19,7 +21,7 @@ class Expansionpaneltate extends State<Expansionpanel> {
   List<NewItem> items = <NewItem>[
     NewItem(
         false, // isExpanded ?
-        '${hourlyWeather.dt}', // header
+        'header', // header
         Padding(
             padding: EdgeInsets.all(20.0),
             child: Column(
