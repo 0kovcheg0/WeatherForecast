@@ -5,7 +5,8 @@ part 'hourly.g.dart';
 
 @JsonSerializable(explicitToJson: true, anyMap: true)
 class Hourly {
-  int dt;
+  @JsonKey(fromJson: _fromJson, toJson: _toJson)
+  DateTime dt;
   double temp;
   @JsonKey(name: "feels_like")
   double feelsLike;
@@ -24,7 +25,6 @@ class Hourly {
   double windGust;
   List<Weather> weather;
   double pop;
-
   Hourly({
     required this.dt,
     required this.temp,
@@ -45,4 +45,7 @@ class Hourly {
   factory Hourly.fromJson(Map<String, dynamic> json) => _$HourlyFromJson(json);
 
   Map<String, dynamic> toJson() => _$HourlyToJson(this);
+  //Converting UNIX int dt JSON response to Date Time since epoch
+  static DateTime _fromJson(int dt) => DateTime.fromMillisecondsSinceEpoch(dt);
+  static int _toJson(DateTime time) => time.millisecondsSinceEpoch;
 }

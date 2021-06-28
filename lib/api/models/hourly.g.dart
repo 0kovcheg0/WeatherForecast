@@ -8,7 +8,7 @@ part of 'hourly.dart';
 
 Hourly _$HourlyFromJson(Map json) {
   return Hourly(
-    dt: json['dt'] as int,
+    dt: Hourly._fromJson(json['dt'] as int),
     temp: (json['temp'] as num).toDouble(),
     feelsLike: (json['feels_like'] as num).toDouble(),
     pressure: json['pressure'] as int,
@@ -28,7 +28,7 @@ Hourly _$HourlyFromJson(Map json) {
 }
 
 Map<String, dynamic> _$HourlyToJson(Hourly instance) => <String, dynamic>{
-      'dt': instance.dt,
+      'dt': Hourly._toJson(instance.dt),
       'temp': instance.temp,
       'feels_like': instance.feelsLike,
       'pressure': instance.pressure,

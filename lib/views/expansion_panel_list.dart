@@ -4,7 +4,7 @@ import 'package:weather_forecast/api/models/hourly.dart';
 import 'package:weather_forecast/cubit/weather/weather_cubit.dart';
 
 import '../service_locator.dart';
-
+//Expandble list view for weather list
 class Expansionpanel extends StatefulWidget {
   Expansionpaneltate createState() =>  Expansionpaneltate();
 }
@@ -16,7 +16,6 @@ class NewItem {
   NewItem(this.isExpanded, this.header, this.body, this.iconpic);
 }
 class Expansionpaneltate extends State<Expansionpanel> {
-
 
   List<NewItem> items = <NewItem>[
     NewItem(

@@ -2,8 +2,7 @@ import 'package:chopper/chopper.dart';
 import 'package:weather_forecast/api/models/weather_model.dart';
 import 'package:weather_forecast/api/services/weather_service.dart';
 import 'package:weather_forecast/resources/app_strings.dart';
-
-import 'api_error.dart';
+import 'package:weather_forecast/api/api_error.dart';
 
 class ApiClient {
   static final ChopperClient _chopperClient = ChopperClient(
@@ -18,12 +17,18 @@ class ApiClient {
 
   static final weatherService = _chopperClient.getService<WeatherService>();
 
-  Future<WeatherModel> getWeather() async {
-    final rawWeathers =
-        (await _makeCheckedCall(() => weatherService.getWeather())).body;
-    final weather = WeatherModel.fromJson(rawWeathers);
+  Future<WeatherModel> getWeather({
+    required double latitude,
+    required double longtitude,
+  }) async {
+    final rawWeathers = await _makeCheckedCall(
+      () => weatherService.getWeather(
+        latitude: latitude,
+        longtitude: longtitude,
+      ),
+    );
 
-    return weather;
+    return WeatherModel.fromJson(rawWeathers.body);
   }
 
   Future<Response> _makeCheckedCall(Future<Response> Function() call) async {

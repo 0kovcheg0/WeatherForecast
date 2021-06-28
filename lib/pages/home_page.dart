@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:weather_forecast/api/models/weather_model.dart';
-import 'package:weather_forecast/cubit/geolocation/geolocation_cubit.dart';
 import 'package:weather_forecast/cubit/weather/weather_cubit.dart';
 import 'package:weather_forecast/pages/side_menu.dart';
 import 'package:weather_forecast/resources/app_strings.dart';
 import 'package:weather_forecast/views/weather_list_view.dart';
-
-import '../service_locator.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key? key, required this.title}) : super(key: key);
@@ -19,26 +18,12 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  // void _getCurrentLocation() {
-  //   Geolocator.getCurrentPosition(
-  //           desiredAccuracy: LocationAccuracy.best,
-  //           forceAndroidLocationManager: true)
-  //       .then((Position position) {
-  //     setState(() {
-  //       _currentPosition = position;
-  //     });
-  //   }).catchError((e) {
-  //     print(e);
-  //   });
-  // }
-  final weatherCubit = getIt.get<WeatherCubit>();
-  final geolocationCubit = getIt.get<GeolocationCubit>();
- @override
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: SideMenu(),
       appBar: AppBar(
-        title: Text(AppStrings.home_title),
+        title: Text(AppStrings.homeTitle),
       ),
       body: BlocConsumer<WeatherCubit, WeatherState>(
         listener: (weatherCubit, state) {
@@ -54,19 +39,13 @@ class _HomePageState extends State<HomePage> {
           switch (state.status) {
             case WeatherStatus.initial:
             case WeatherStatus.loading:
-              return _buildLoading();
             case WeatherStatus.loaded:
               return _buildHourlyWeatherList(state.weather!);
             default:
-              return Text('0, 0');
+             return Text("0, 0");
           }
         },
       ),
-      // floatingActionButton: FloatingActionButton(
-      //   child: Text("Get location"),
-      //   onPressed: _getCurrentLocation,
-      // ),
-
     );
   }
 
@@ -78,6 +57,28 @@ class _HomePageState extends State<HomePage> {
         return HourlyWeatherView(hourlyWeather: weather.hourly[index]);
       },
     );
+  }
+
+  //Message box in case of denied location permission
+  Widget _showLocationDeniedDialog() {
+          return AlertDialog(
+            backgroundColor: Colors.white,
+            title: Text('Location is disabled :(',
+                style: TextStyle(color: Colors.black)),
+            actions: <Widget>[
+              TextButton(
+                child: Text('Enable!'),
+                style: TextButton.styleFrom(
+                  primary: Colors.grey,
+                  elevation: 1,
+                ),
+                onPressed: () {
+                  Geolocator.openLocationSettings();
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
   }
 
   Widget _buildLoading() {

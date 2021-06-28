@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:weather_forecast/api/api_client.dart';
-import 'package:weather_forecast/cubit/geolocation/geolocation_cubit.dart';
 import 'package:weather_forecast/cubit/weather/weather_cubit.dart';
 import 'package:weather_forecast/pages/home_page.dart';
+import 'package:weather_forecast/resources/app_strings.dart';
 
 class App extends StatelessWidget {
   @override
@@ -13,18 +12,9 @@ class App extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.lightBlue,
       ),
-      home: MultiBlocProvider(
-        providers: [
-          BlocProvider(
-            create: (BuildContext context) =>
-                WeatherCubit(ApiClient())..getWeather(),
-          ),
-          BlocProvider(
-            create: (BuildContext context) =>
-                GeolocationCubit()..getGeolocation(),
-          ),
-        ],
-        child: HomePage(title: 'Flutter Demo Home Page'),
+      home: BlocProvider(
+        create: (BuildContext context) => WeatherCubit()..getWeather(),
+        child: HomePage(title: AppStrings.homeTitle),
       ),
     );
   }

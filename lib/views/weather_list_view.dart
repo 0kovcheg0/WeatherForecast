@@ -10,7 +10,6 @@ class HourlyWeatherView extends StatelessWidget {
     required this.hourlyWeather,
     this.padding = const EdgeInsets.all(12),
   });
-
   @override
   Widget build(BuildContext context) {
     return Container(
