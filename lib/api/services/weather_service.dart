@@ -12,6 +12,7 @@ abstract class WeatherService extends ChopperService {
   Future<Response> getWeather({
     @Query("lat") required double latitude,
     @Query("lon") required double longtitude,
+    @Query("units") String units = AppStrings.units,
     @Query("exclude") String exclude = AppStrings.castMode,
     @Query("appid") String appId = AppStrings.appId,
   });

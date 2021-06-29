@@ -45,7 +45,8 @@ class Hourly {
   factory Hourly.fromJson(Map<String, dynamic> json) => _$HourlyFromJson(json);
 
   Map<String, dynamic> toJson() => _$HourlyToJson(this);
-  //Converting UNIX int dt JSON response to Date Time since epoch
+
   static DateTime _fromJson(int dt) => DateTime.fromMillisecondsSinceEpoch(dt);
+
   static int _toJson(DateTime time) => time.millisecondsSinceEpoch;
 }

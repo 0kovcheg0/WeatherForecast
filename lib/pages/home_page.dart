@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:geolocator/geolocator.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:weather_forecast/api/models/weather_model.dart';
 import 'package:weather_forecast/cubit/weather/weather_cubit.dart';
 import 'package:weather_forecast/pages/side_menu.dart';
@@ -39,10 +37,11 @@ class _HomePageState extends State<HomePage> {
           switch (state.status) {
             case WeatherStatus.initial:
             case WeatherStatus.loading:
+              return _buildLoading();
             case WeatherStatus.loaded:
               return _buildHourlyWeatherList(state.weather!);
             default:
-             return Text("0, 0");
+             return Text(AppStrings.defaultMessage);
           }
         },
       ),
@@ -57,28 +56,6 @@ class _HomePageState extends State<HomePage> {
         return HourlyWeatherView(hourlyWeather: weather.hourly[index]);
       },
     );
-  }
-
-  //Message box in case of denied location permission
-  Widget _showLocationDeniedDialog() {
-          return AlertDialog(
-            backgroundColor: Colors.white,
-            title: Text('Location is disabled :(',
-                style: TextStyle(color: Colors.black)),
-            actions: <Widget>[
-              TextButton(
-                child: Text('Enable!'),
-                style: TextButton.styleFrom(
-                  primary: Colors.grey,
-                  elevation: 1,
-                ),
-                onPressed: () {
-                  Geolocator.openLocationSettings();
-                  Navigator.of(context).pop();
-                },
-              ),
-            ],
-          );
   }
 
   Widget _buildLoading() {

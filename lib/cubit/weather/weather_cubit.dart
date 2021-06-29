@@ -34,6 +34,4 @@ class WeatherCubit extends Cubit<WeatherState> {
       );
     }
   }
-
-
 }

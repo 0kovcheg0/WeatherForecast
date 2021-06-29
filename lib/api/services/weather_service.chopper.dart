@@ -20,12 +20,14 @@ class _$WeatherService extends WeatherService {
   Future<Response<dynamic>> getWeather(
       {required double latitude,
       required double longtitude,
+      String units = AppStrings.units,
       String exclude = AppStrings.castMode,
       String appId = AppStrings.appId}) {
     final $url = 'https://api.openweathermap.org/data/2.5/onecall?';
     final $params = <String, dynamic>{
       'lat': latitude,
       'lon': longtitude,
+      'units': units,
       'exclude': exclude,
       'appid': appId
     };
