@@ -13,10 +13,10 @@ WeatherModel _$WeatherModelFromJson(Map json) {
     timezone: json['timezone'] as String,
     timezoneOffset: json['timezone_offset'] as int,
     hourly: (json['hourly'] as List<dynamic>)
-        .map((e) => Hourly.fromJson(Map<String, dynamic>.from(e as Map)))
+        .map((e) => WeatherMode.fromJson(Map<String, dynamic>.from(e as Map)))
         .toList(),
     daily: (json['daily'] as List<dynamic>)
-        .map((e) => Daily.fromJson(Map<String, dynamic>.from(e as Map)))
+        .map((e) => WeatherMode.fromJson(Map<String, dynamic>.from(e as Map)))
         .toList(),
   );
 }
