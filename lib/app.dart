@@ -13,8 +13,10 @@ class App extends StatelessWidget {
         primarySwatch: Colors.lightBlue,
       ),
       home: BlocProvider(
-        create: (BuildContext context) => WeatherCubit()..getWeather(),
-        child: HomePage(title: AppStrings.homeTitle),
+        create: (BuildContext context) => WeatherCubit()..getHourlyWeatherMode(),
+        child: HomePage(
+          title: AppStrings.homeTitle,
+        ),
       ),
     );
   }

@@ -6,6 +6,5 @@ abstract class GeolocationUtils {
         desiredAccuracy: LocationAccuracy.best,
         forceAndroidLocationManager: true,
       );
-
   }
 }

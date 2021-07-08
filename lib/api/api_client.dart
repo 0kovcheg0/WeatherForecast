@@ -10,8 +10,6 @@ class ApiClient {
     services: [
       WeatherService.create(),
     ],
-    // TODO: See this feature in details
-    interceptors: [],
     converter: JsonConverter(),
   );
 
@@ -27,21 +25,18 @@ class ApiClient {
         longtitude: longtitude,
       ),
     );
-
     return WeatherModel.fromJson(rawWeathers.body);
   }
 
   Future<Response> _makeCheckedCall(Future<Response> Function() call) async {
     try {
       final response = await call();
-
       if (response.statusCode >= 400) {
         throw ApiError(
           statusCode: response.statusCode,
           message: response.error.toString(),
         );
       }
-
       return response;
     } on ApiError catch (ex) {
       throw ex;

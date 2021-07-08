@@ -1,6 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:weather_forecast/api/models/hourly.dart';
-import 'package:weather_forecast/api/models/daily.dart';
+import 'package:weather_forecast/api/models/weather_mode.dart';
 
 part 'weather_model.g.dart';
 
@@ -11,8 +10,9 @@ class WeatherModel {
   String timezone;
   @JsonKey(name: "timezone_offset")
   int timezoneOffset;
-  List<Hourly> hourly;
-  List<Daily> daily;
+  List<WeatherMode> hourly;
+  List<WeatherMode> daily;
+
 
   WeatherModel({
     required this.lat,
