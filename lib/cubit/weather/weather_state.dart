@@ -10,26 +10,22 @@ enum WeatherStatus {
 @immutable
 class WeatherState extends Equatable {
 
-  final WeatherModel? weather;
   final List<WeatherMode>? weatherMode;
   final String? message;
   final WeatherStatus? status;
 
   WeatherState({
-    this.weather,
     this.weatherMode,
     this.message,
     this.status,
   });
 
   WeatherState copyWith({
-    WeatherModel? weather,
     List<WeatherMode>? weatherMode,
     String? message,
     WeatherStatus? status,
   }) {
     return WeatherState(
-      weather: weather ?? this.weather,
       weatherMode: weatherMode ?? this.weatherMode,
       message: message ?? this.message,
       status: status ?? this.status,
@@ -37,5 +33,5 @@ class WeatherState extends Equatable {
   }
 
   @override
-  List<Object?> get props => [weather, message, status];
+  List<Object?> get props => [weatherMode, message, status];
 }

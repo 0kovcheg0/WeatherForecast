@@ -38,7 +38,7 @@ class WeatherMode {
   Map<String, dynamic> toJson() => _$WeatherModeToJson(this);
 
   static DateTime _fromJson(int int) =>
-      DateTime.fromMillisecondsSinceEpoch(int * 1000, isUtc: true);
+      DateTime.fromMillisecondsSinceEpoch(int * 1000);
 
   static int _toJson(DateTime time) => time.millisecondsSinceEpoch;
 }
